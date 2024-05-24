@@ -1,4 +1,5 @@
 const cardapioModel = require('../models/cardapio.model');
+const empreendimentoModel = require('../models/empreendimento.model');
 
 class CardapioService {
   async findAll() {
@@ -12,6 +13,7 @@ class CardapioService {
 
   async findById(id) {
     try {
+      // Verifica se o cardápio existe
       const cardapio = await cardapioModel.findById(id);
       if (!cardapio) {
         return { error: 'Cardápio não encontrado.', status: 404 };
@@ -24,14 +26,21 @@ class CardapioService {
 
   async create(data) {
     try {
+      // Verifica se os campos obrigatórios foram preenchidos
       if (!data.descricao || !data.titulo || !data.idEmpreendimento) {
         return { error: 'Campos obrigatórios não preenchidos.', status: 400 };
       }
 
+      // Verifica se o cardápio já existe
       const cardapio = await cardapioModel.findByTitulo(data.titulo);
-
       if (cardapio) {
         return { error: 'Cardápio já cadastrado.', status: 400 };
+      }
+
+      // Verifica se o empreendimento existe
+      const empreendimento = await empreendimentoModel.findById(data.idEmpreendimento);
+      if (!empreendimento) {
+        return { error: 'Empreendimento não encontrado.', status: 400 };
       }
 
       await cardapioModel.create(data);
@@ -43,15 +52,25 @@ class CardapioService {
 
   async update(id, data) {
     try {
+      // Verifica se o cardápio existe
       const cardapio = await cardapioModel.findById(id);
       if (!cardapio) {
         return { error: 'Cardápio não encontrado.', status: 404 };
       }
 
+      // Verifica se os campos obrigatórios foram preenchidos
       if (data.titulo) {
         const cardapioByTitulo = await cardapioModel.findByTitulo(data.titulo);
         if (cardapioByTitulo && cardapioByTitulo.id !== id) {
           return { error: 'Cardápio já cadastrado.', status: 400 };
+        }
+      }
+
+      // Verifica se o empreendimento existe
+      if (data.idEmpreendimento) {
+        const empreendimento = await empreendimentoModel.findById(data.idEmpreendimento);
+        if (!empreendimento) {
+          return { error: 'Empreendimento não encontrado.', status: 400 };
         }
       }
 
@@ -64,6 +83,7 @@ class CardapioService {
 
   async delete(id) {
     try {
+      // Verifica se o cardápio existe
       const cardapio = await cardapioModel.findById(id);
       if (!cardapio) {
         return { error: 'Cardápio não encontrado.', status: 404 };

@@ -1,4 +1,4 @@
-const connection = require('../../database/database.connection');
+const connection = require('../database/database.connection');
 
 class SecaoModel {
   async findAll() {
