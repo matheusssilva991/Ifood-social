@@ -1,32 +1,32 @@
 const express = require("express");
 const router = express.Router();
 
-const cardapioService = require('../services/cardapio.service');
+const secaoService = require('../services/secao.service');
 
-router.get('/cardapios', async (req, res) => {
-  const result = await cardapioService.findAll();
+router.get('/secoes', async (req, res) => {
+  const result = await secaoService.findAll();
 
   if (result.error) {
     return res.status(result.status).json({ error: result.error });
   }
 
-  res.status(result.status).json(result.cardapios);
+  res.status(result.status).json(result.secoes);
 });
 
-router.get('/cardapio/:id', async (req, res) => {
+router.get('/secao/:id', async (req, res) => {
   const { id } = req.params;
-  const result = await cardapioService.findById(id);
+  const result = await secaoService.findById(id);
 
   if (result.error) {
     return res.status(result.status).json({ error: result.error });
   }
 
-  res.status(result.status).json(result.cardapio);
+  res.status(result.status).json(result.secao);
 });
 
-router.post('/cardapio', async (req, res) => {
+router.post('/secao', async (req, res) => {
   const data = req.body;
-  const result = await cardapioService.create(data);
+  const result = await secaoService.create(data);
 
   if (result.error) {
     return res.status(result.status).json({ error: result.error });
@@ -35,10 +35,10 @@ router.post('/cardapio', async (req, res) => {
   res.status(result.status).json({ message: result.message });
 });
 
-router.put('/cardapio/:id', async (req, res) => {
+router.put('/secao/:id', async (req, res) => {
   const data = req.body;
   const { id } = req.params;
-  const result = await cardapioService.update(id, data);
+  const result = await secaoService.update(id, data);
 
   if (result.error) {
     return res.status(result.status).json({ error: result.error });
@@ -47,9 +47,9 @@ router.put('/cardapio/:id', async (req, res) => {
   res.status(result.status).json({ message: result.message });
 });
 
-router.delete('/cardapio/:id', async (req, res) => {
+router.delete('/secao/:id', async (req, res) => {
   const { id } = req.params;
-  const result = await cardapioService.delete(id);
+  const result = await secaoService.delete(id);
 
   if (result.error) {
     return res.status(result.status).json({ error: result.error });
