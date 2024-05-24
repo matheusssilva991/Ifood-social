@@ -83,7 +83,7 @@ PORT = 8080
 `GET /api/cardapio/:id` - Pegar um cardápio pelo id\
 `POST /api/cardapio` - Cadastrar um novo cardápio\
 `PUT /api/cardapio/:id` - Atualizar um cardápio\
-`DELETE cardapio/:id` - Deletar um cardápio\
+`DELETE cardapio/:id` - Deletar um cardápio
 
 **Seção**:\
 `GET /api/secoes` - Pegar todas as seções\
