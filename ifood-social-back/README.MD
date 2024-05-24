@@ -91,3 +91,18 @@ PORT = 8080
 `POST /api/secao` - Cadastrar uma nova seção\
 `PUT /api/secao/:id` - Atualizar uma seção\
 `DELETE /api/secao/:id` - Deletar uma seção
+
+**Seção Produtos**:\
+`GET /api/secoes-produtos` - Pegar todas as seções de produtos\
+`GET /api/secao-produto/:id` - Pegar uma seção de produto pelo id\
+`POST /api/secao-produto` - Cadastrar uma nova seção de produto\
+`PUT /api/secao-produto/:id` - Atualizar uma seção de produto\
+`DELETE /api/secao-produto/:id` - Deletar uma seção de produto
+
+**Empreendimento**:\
+`GET /api/empreendimentos` - Pegar todos os empreendimentos\
+`GET /api/empreendimento/:id` - Pegar um empreendimento pelo id\
+
+**Produto**:\
+`GET /api/produtos` - Pegar todos os produtos\
+`GET /api/produto/:id` - Pegar um produto pelo id\

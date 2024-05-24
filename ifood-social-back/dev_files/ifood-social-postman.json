@@ -59,7 +59,7 @@
 								},
 								{
 									"key": "titulo",
-									"value": "Natal",
+									"value": "Natal3",
 									"type": "text"
 								},
 								{
@@ -258,13 +258,226 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/secao/3",
+							"raw": "{{url}}/secao/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"secao",
-								"3"
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seção Produto",
+			"item": [
+				{
+					"name": "SECOES-PRODUTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/secoes-produtos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"secoes-produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SECAO-PRODUTO / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/secao-produto/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"secao-produto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SECAO-PRODUTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "numOrdem",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idProduto",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idSecao",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/secao-produto",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"secao-produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SECAO-PRODUTO / ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idProduto",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "idSecao",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "numOrdem",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/secao-produto/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"secao-produto",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SECAO-PRODUTO / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/secao-produto/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"secao-produto",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empreendimento",
+			"item": [
+				{
+					"name": "EMPRENDIMENTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/empreendimentos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"empreendimentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EMPREENDIMENTO / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/empreendimento/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"empreendimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "PRODUTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/produtos",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PRODUTO / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/produto/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"produto",
+								"1"
 							]
 						}
 					},
