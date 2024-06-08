@@ -1,23 +1,29 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tailwind-base, primereact, tailwind-utilities;
+
+/* IMPORTANT: In "styled" mode you must add the PrimeReact Theme here. Do NOT include in "unstyled" mode */
+@import 'primereact/resources/themes/lara-light-indigo/theme.css' layer(primereact);
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
 
 :root {
-  --foreground-color: #F86B2E;
+  --foreground-color: rgb(249 115 22);
+  --main-color: rgb(249 115 22);
+  --main-color-dark: rgb(233, 100, 5);
   --background-color: #F8F8F8;
-  --secondary-color: #F0F0F0;
+  --secondary-color: rgb(226 232 240);
+  --secondary-color-dark: rgb(201, 210, 221);
   --border-color: #E5E5E5;
+  --text-primary: #FFFFFF;
+  --text-secondary: #000000;
 }
 
-
-*, body, html {
-  box-sizing: "border-content";
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
+body {
+  background-color: var(--background-color);
 }
-
-a {
-  color: var(--foreground-color);
-}
-

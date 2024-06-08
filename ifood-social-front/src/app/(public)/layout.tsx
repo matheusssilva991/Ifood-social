@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Header } from "@/app/components/header/Header";
+import { Footer } from "@/app/components/footer/Footer";
+
 import "./globals.css";
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import "primereact/resources/themes/saga-orange/theme.css";
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
-        <Header></Header>
-        {children}
+      <body className={inter.className + ' flex flex-col min-h-screen'}>
+          <Header></Header>
+        <main className="flex-1">
+          {children}
+        </main>
         <Footer></Footer>
       </body>
     </html>

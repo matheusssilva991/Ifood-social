@@ -8,7 +8,7 @@ type BoxHeaderProps = {
 };
 
 export function BoxHeaderItem({ children, isActive, onClick, isDisabled }: BoxHeaderProps) {
-    const activeClass = isActive ? "bg-orange-400 text-white" : "bg-slate-200";
+    const activeClass = isActive ? "bg-orange-500 text-white" : "bg-slate-200";
 
     return (
         <button onClick={onClick} disabled={isDisabled}

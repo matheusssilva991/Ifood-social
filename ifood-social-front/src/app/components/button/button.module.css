@@ -1,0 +1,27 @@
+.btn {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.btnPrimary {
+    background-color: var(--main-color);
+    color: var(--text-primary);
+    border: 1px solid var(--main-color);
+}
+
+.btnPrimary:hover {
+    border: 1px solid var(--main-color-dark);
+}
+
+.btnSecondary {
+    background-color: var(--secondary-color);
+    color: var(--text-secondary);
+    border: 1px solid var(--secondary-color);
+}
+
+.btnSecondary:hover {
+    background-color: var(--secondary-color-dark);
+    border: 1px solid var(--secondary-color-dark);
+}
+
