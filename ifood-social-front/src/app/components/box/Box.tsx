@@ -4,7 +4,7 @@ type boxProps = {
 
 export function Box({ children }: boxProps) {
     return (
-        <div className="container mx-auto mt-10 w-9/12 mb-15">
+        <div className="container mx-auto mt-10 w-fit mb-15">
             {children}
         </div>
     );

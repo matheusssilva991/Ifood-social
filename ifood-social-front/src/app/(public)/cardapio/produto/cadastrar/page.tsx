@@ -11,7 +11,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { FileUpload } from 'primereact/fileupload';
 import { useRouter } from 'next/navigation';
 
-export default function CadastrarCardapio() {
+export default function CadastrarProduto() {
     const router = useRouter();
 
     return (

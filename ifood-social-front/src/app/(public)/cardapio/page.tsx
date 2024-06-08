@@ -82,7 +82,7 @@ export default function Cardapios() {
                             value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
                         </IconField>
                         <Button icon="pi pi-plus" size="small" btnStyle="btnSecondary" onClick={() => {
-                            router.push('/cardapio/cadastrar');
+                            router.push('/cardapio/secao/cadastrar');
                         }}>
                             Adicionar seção
                         </Button>
@@ -111,7 +111,44 @@ export default function Cardapios() {
                     </DataTable>
                     </>
                 )}
-                {isProduto && <h1>Produtos</h1>}
+                {isProduto && (
+                    <>
+                    <div className="flex w-100 justify-between mb-5">
+                        <IconField iconPosition="left">
+                            <InputIcon className="pi pi-search"> </InputIcon>
+                            <InputText placeholder="Buscar por titulo" className="p-inputtext-sm w-64"
+                            value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                        </IconField>
+                        <Button icon="pi pi-plus" size="small" btnStyle="btnSecondary" onClick={() => {
+                            router.push('/cardapio/produto/cadastrar');
+                        }}>
+                            Adicionar Produto
+                        </Button>
+                    </div>
+
+                    <DataTable value={filteredSections} columnResizeMode="expand" resizableColumns showGridlines
+                    tableStyle={{ minWidth: '50rem' }} reorderableRows onRowReorder={(e) => setSections(e.value)}
+                    size="small" scrollable scrollHeight="400px">
+                        <Column rowReorder style={{ width: '1rem' }}
+                        pt={{headerCell: {className: styles.tableStyle + " " + styles.tableHeader},
+                        bodyCell: {className: styles.tableStyle}}}/>
+
+                        <Column field="name" header="Titulo" style={{ width: '3rem' }}
+                        pt={{headerCell: {className: styles.tableStyle + " " + styles.tableHeader},
+                        bodyCell: {className: styles.tableStyle}}}/>
+
+                        <Column field="description" header="Descrição" style={{ width: '20rem' }}
+                        pt={{headerCell: {className: styles.tableStyle + " " + styles.tableHeader},
+                        bodyCell: {className: styles.tableStyle}}}/>
+
+                        <Column field="isActive" header="Ativo" style={{ width: '5rem' }} body={(rowData) => (
+                            <Fragment>{rowData.isActive ? 'Ativo' : 'Inativo'}</Fragment>
+                        )}
+                        pt={{headerCell: {className: styles.tableStyle + " " + styles.tableHeader},
+                        bodyCell: {className: styles.tableStyle}}}/>
+                    </DataTable>
+                    </>
+                )}
             </BoxContent>
         </Box>
     );
