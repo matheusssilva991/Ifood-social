@@ -2,7 +2,7 @@ const connection = require('../database/database.connection');
 
 class SecaoProdutoModel {
   async findAll() {
-    const rows = await connection.query('SELECT * FROM SECAO_PRODUTO INNER JOIN PRODUTO ON SECAO_PRODUTO.PRODUTO_COD_PRODUTO = PRODUTO.COD_PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA');
+    const [rows] = await connection.execute('SELECT * FROM SECAO_PRODUTO INNER JOIN PRODUTO ON SECAO_PRODUTO.PRODUTO_COD_PRODUTO = PRODUTO.COD_PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA');
 
     const secoesProdutos = rows.map((row) => {
       return {
@@ -28,7 +28,7 @@ class SecaoProdutoModel {
   }
 
   async findById(id) {
-    const rows = await connection.query('SELECT * FROM SECAO_PRODUTO INNER JOIN PRODUTO ON SECAO_PRODUTO.PRODUTO_COD_PRODUTO = PRODUTO.COD_PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA WHERE COD_SECAO_PRODUTO = ?',
+    const [rows] = await connection.execute('SELECT * FROM SECAO_PRODUTO INNER JOIN PRODUTO ON SECAO_PRODUTO.PRODUTO_COD_PRODUTO = PRODUTO.COD_PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA WHERE COD_SECAO_PRODUTO = ?',
      [id]);
 
     if (rows.length === 0) {
@@ -55,7 +55,7 @@ class SecaoProdutoModel {
   }
 
   async findBySecaoEProduto(idSecao, idProduto) {
-    const rows = await connection.query('SELECT * FROM SECAO_PRODUTO WHERE SECAO_CARDAPIO_COD_SECAO_CARDAPIO = ? AND PRODUTO_COD_PRODUTO = ?',
+    const [rows] = await connection.execute('SELECT * FROM SECAO_PRODUTO WHERE SECAO_CARDAPIO_COD_SECAO_CARDAPIO = ? AND PRODUTO_COD_PRODUTO = ?',
      [idSecao, idProduto]);
 
     if (rows.length === 0) {
@@ -72,23 +72,23 @@ class SecaoProdutoModel {
   }
 
   async create({ numOrdem, idProduto, idSecao }) {
-    let id = await connection.query('SELECT MAX(COD_SECAO_PRODUTO) + 1 AS COD_SECAO_PRODUTO FROM SECAO_PRODUTO');
+    let [id] = await connection.execute('SELECT MAX(COD_SECAO_PRODUTO) + 1 AS COD_SECAO_PRODUTO FROM SECAO_PRODUTO');
     id = id[0].COD_SECAO_PRODUTO || 1;
 
-    await connection.query(
+    await connection.execute(
       'INSERT INTO SECAO_PRODUTO (COD_SECAO_PRODUTO, NUM_ORDEM, COD_PRODUTO, COD_SECAO) VALUES (?, ?, ?, ?)',
        [id, numOrdem, idProduto, idSecao]);
   }
 
   async update(id, { numOrdem, idProduto, idSecao }) {
-    await connection.query(
+    await connection.execute(
       'UPDATE SECAO_PRODUTO SET NUM_ORDEM = ?, COD_PRODUTO = ?, COD_SECAO = ? WHERE COD_SECAO_PRODUTO = ?',
       [numOrdem, idProduto, idSecao, id]
     );
   }
 
   async delete(id) {
-    await connection.query('DELETE FROM SECAO_PRODUTO WHERE COD_SECAO_PRODUTO = ?', [id]);
+    await connection.execute('DELETE FROM SECAO_PRODUTO WHERE COD_SECAO_PRODUTO = ?', [id]);
   }
 }
 

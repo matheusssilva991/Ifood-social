@@ -2,7 +2,7 @@ const connection = require('../database/database.connection');
 
 class CardapioModel {
   async findAll() {
-    const rows = await connection.query('SELECT * FROM CARDAPIO');
+    const [rows] = await connection.execute('SELECT * FROM CARDAPIO');
 
     const cardapios = rows.map((row) => {
       return {
@@ -16,7 +16,7 @@ class CardapioModel {
   }
 
   async findById(id) {
-    const rows = await connection.query('SELECT * FROM CARDAPIO WHERE COD_CARDAPIO = ?', [id]);
+    const [rows] = await connection.execute('SELECT * FROM CARDAPIO WHERE COD_CARDAPIO = ?', [id]);
 
     if (rows.length === 0) {
       return null;
@@ -32,27 +32,27 @@ class CardapioModel {
   }
 
   async create({ descricao, titulo, idEmpreendimento }) {
-    let id = await connection.query('SELECT MAX(COD_CARDAPIO) + 1 AS COD_CARDAPIO FROM CARDAPIO');
+    let [id] = await connection.execute('SELECT MAX(COD_CARDAPIO) + 1 AS COD_CARDAPIO FROM CARDAPIO');
     id = id[0].COD_CARDAPIO || 1;
 
-    await connection.query(
+    await connection.execute(
       'INSERT INTO CARDAPIO (COD_CARDAPIO, DCR_CARDAPIO, DCR_TITULO_APRES, COD_EMPREEDIMENTO) VALUES (?, ?, ?, ?)',
        [id, descricao, titulo, idEmpreendimento]);
   }
 
   async update(id, { descricao, titulo, idEmpreendimento}) {
-    await connection.query(
+    await connection.execute(
       'UPDATE CARDAPIO SET DCR_CARDAPIO = ?, DCR_TITULO_APRES = ?, COD_EMPREEDIMENTO = ? WHERE COD_CARDAPIO = ?',
       [descricao, titulo, idEmpreendimento, id]
     );
   }
 
   async delete(id) {
-    await connection.query('DELETE FROM CARDAPIO WHERE COD_CARDAPIO = ?', [id]);
+    await connection.execute('DELETE FROM CARDAPIO WHERE COD_CARDAPIO = ?', [id]);
   }
 
   async findByTitulo(titulo) {
-    const rows = await connection.query('SELECT * FROM CARDAPIO WHERE DCR_TITULO_APRES = ?', [titulo]);
+    const [rows] = await connection.execute('SELECT * FROM CARDAPIO WHERE DCR_TITULO_APRES = ?', [titulo]);
 
     if (rows.length === 0) {
       return null;

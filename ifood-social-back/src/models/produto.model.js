@@ -2,7 +2,7 @@ const connection = require('../database/database.connection');
 
 class ProdutoModel {
   async findAll() {
-    const rows = await connection.query('SELECT * FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA;');
+    const [rows] = await connection.execute('SELECT * FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA;');
 
     const produtos = rows.map((row) => {
       return {
@@ -23,7 +23,7 @@ class ProdutoModel {
   }
 
   async findById(id) {
-    const rows = await connection.query('SELECT * FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA WHERE COD_PRODUTO = ?',
+    const [rows] = await connection.execute('SELECT * FROM PRODUTO INNER JOIN CATEGORIA ON PRODUTO.COD_CATEGORIA = CATEGORIA.COD_CATEGORIA WHERE COD_PRODUTO = ?',
      [id]);
 
     if (rows.length === 0) {

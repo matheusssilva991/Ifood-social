@@ -2,9 +2,9 @@ const connection = require('../database/database.connection');
 
 class SecaoModel {
   async findAll() {
-    const rows = await connection.query('SELECT * FROM SECAO_CARDAPIO');
+    const [query] = await connection.execute('SELECT * FROM SECAO_CARDAPIO ORDER BY NUM_ORDEM ASC');
 
-    const secoes = rows.map((row) => {
+    const secoes = query.map((row) => {
       return {
         id: row.COD_SECAO_CARDAPIO,
         descricao: row.DCR_SECAO_CARDAPIO,
@@ -17,7 +17,7 @@ class SecaoModel {
   }
 
   async findById(id) {
-    const rows = await connection.query('SELECT * FROM SECAO_CARDAPIO WHERE COD_SECAO_CARDAPIO = ?', [id]);
+    const [rows] = await connection.execute('SELECT * FROM SECAO_CARDAPIO WHERE COD_SECAO_CARDAPIO = ?', [id]);
 
     if (rows.length === 0) {
       return null;
@@ -34,27 +34,27 @@ class SecaoModel {
   }
 
   async create({ descricao, titulo, numOrdem, idCardapio }) {
-    let id = await connection.query('SELECT MAX(COD_SECAO_CARDAPIO) + 1 AS COD_SECAO_CARDAPIO FROM SECAO_CARDAPIO');
+    let [id] = await connection.execute('SELECT MAX(COD_SECAO_CARDAPIO) + 1 AS COD_SECAO_CARDAPIO FROM SECAO_CARDAPIO');
     id = id[0].COD_SECAO_CARDAPIO || 1;
 
-    await connection.query(
+    await connection.execute(
       'INSERT INTO SECAO_CARDAPIO (COD_SECAO_CARDAPIO, DCR_SECAO_CARDAPIO, DCR_TITULO_APRES, NUM_ORDEM, COD_CARDAPIO) VALUES (?, ?, ?, ?, ?)',
        [id, descricao, titulo, numOrdem, idCardapio]);
   }
 
   async update(id, { descricao, titulo, numOrdem, idCardapio}) {
-    await connection.query(
+    await connection.execute(
       'UPDATE SECAO_CARDAPIO SET DCR_SECAO_CARDAPIO = ?, DCR_TITULO_APRES = ?, NUM_ORDEM = ?, COD_CARDAPIO = ? WHERE COD_SECAO_CARDAPIO = ?',
       [descricao, titulo, numOrdem, idCardapio, id]
     );
   }
 
   async delete(id) {
-    await connection.query('DELETE FROM SECAO_CARDAPIO WHERE COD_SECAO_CARDAPIO = ?', [id]);
+    await connection.execute('DELETE FROM SECAO_CARDAPIO WHERE COD_SECAO_CARDAPIO = ?', [id]);
   }
 
   async findByTitulo(titulo) {
-    const rows = await connection.query('SELECT * FROM SECAO_CARDAPIO WHERE DCR_TITULO_APRES = ?', [titulo]);
+    const [rows] = await connection.execute('SELECT * FROM SECAO_CARDAPIO WHERE DCR_TITULO_APRES = ?', [titulo]);
 
     if (rows.length === 0) {
       return null;

@@ -86,7 +86,13 @@ class SecaoCardapioService {
         }
       }
 
-      await secaoModel.update(id, data);
+      for (const key in data) {
+        if (data[key]) {
+          secao[key] = data[key];
+        }
+      }
+
+      await secaoModel.update(id, secao);
       return { message: 'Seção de cardápio atualizada com sucesso.', status: 200 };
     } catch (error) {
       return { error: error.message, status: 500 };

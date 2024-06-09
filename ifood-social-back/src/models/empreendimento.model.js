@@ -2,7 +2,7 @@ const connection = require('../database/database.connection');
 
 class EmpreendimentoModel {
   async findAll() {
-    const rows = await connection.query('SELECT * FROM EMPREENDIMENTO INNER JOIN CIDADE ON EMPREENDIMENTO.COD_CIDADE = CIDADE.COD_CIDADE;');
+    const [rows] = await connection.execute('SELECT * FROM EMPREENDIMENTO INNER JOIN CIDADE ON EMPREENDIMENTO.COD_CIDADE = CIDADE.COD_CIDADE;');
 
     const empreendimentos = rows.map((row) => {
       return {
@@ -22,7 +22,7 @@ class EmpreendimentoModel {
   }
 
   async findById(id) {
-    const rows = await connection.query('SELECT * FROM EMPREENDIMENTO INNER JOIN CIDADE ON EMPREENDIMENTO.COD_CIDADE = CIDADE.COD_CIDADE WHERE COD_EMPREEDIMENTO = ?', [id]);
+    const [rows] = await connection.execute('SELECT * FROM EMPREENDIMENTO INNER JOIN CIDADE ON EMPREENDIMENTO.COD_CIDADE = CIDADE.COD_CIDADE WHERE COD_EMPREEDIMENTO = ?', [id]);
 
     if (rows.length === 0) {
       return null;

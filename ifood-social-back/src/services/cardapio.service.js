@@ -74,7 +74,12 @@ class CardapioService {
         }
       }
 
-      await cardapioModel.update(id, data);
+      for (const key in data) {
+        if (data[key] !== undefined) {
+          cardapio[key] = data[key];
+        }
+      }
+      await cardapioModel.update(id, cardapio);
       return { message: 'Cardápio atualizado com sucesso.', status: 200 };
     } catch (error) {
       return { error: error.message, status: 500 };

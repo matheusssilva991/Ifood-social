@@ -90,7 +90,13 @@ class SecaoProdutoService {
         }
       }
 
-      await secaoProdutoModel.update(id, data);
+      for (const key in data) {
+        if (data[key]) {
+          secaoProduto[key] = data[key];
+        }
+      }
+
+      await secaoProdutoModel.update(id, secaoProduto);
       return { message: 'Seção de produto atualizada com sucesso.', status: 200 };
     } catch (error) {
       return { error: error.message, status: 500 };
