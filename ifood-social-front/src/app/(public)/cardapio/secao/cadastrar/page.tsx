@@ -7,30 +7,92 @@ import { BoxHeaderItem } from '@/app/components/box/BoxHeaderItem';
 import { Button } from '@/app/components/button/Button';
 import { useRouter } from 'next/navigation';
 import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
+import { InputNumber } from 'primereact/inputnumber';
 import { useState } from 'react';
-
-const options = [
-    { label: 'Opção 1', value: 1 },
-    { label: 'Opção 2', value: 2 },
-    { label: 'Opção 3', value: 3 },
-    { label: 'Opção 4', value: 4 },
-    { label: 'Opção 5', value: 5 }
-];
+import { createSection } from '@/api/secoes';
 
 export default function CadastrarSecao() {
-    const [selectedOption, setSelectedOption] = useState(options[0]);
+    const [isSectionInfo, setIsSectionInfo ] = useState(true);
+    const [isSectionProducts, setIsSectionProducts ] = useState(false);
     const router = useRouter();
+    const [titulo, setTitulo] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [numOrdem, setNumOrdem] = useState<number | null>(0);
+
+    async function handleSubmit() {
+        const section = {
+            titulo: titulo,
+            descricao: descricao,
+            numOrdem: numOrdem || 0,
+            idCardapio: 1
+        };
+
+        await createSection(section);
+        router.push('/cardapio');
+    }
+
+    function handleClickSectionInfo() {
+        setIsSectionInfo(true);
+        setIsSectionProducts(false);
+    }
+
+    function handleClickSectionProducts() {
+        setIsSectionProducts(true);
+        setIsSectionInfo(false);
+    }
 
     return (
         <Box>
             <BoxHeader>
-                <BoxHeaderItem isActive={true} isDisabled={true}>
-                    <h2>Registrar seção</h2>
+                <BoxHeaderItem isActive={isSectionInfo} onClick={handleClickSectionInfo}>
+                    <h2>Informações da seção</h2>
+                </BoxHeaderItem>
+                <BoxHeaderItem isActive={isSectionProducts} onClick={handleClickSectionProducts}>
+                    <h2>Produtos da seção</h2>
                 </BoxHeaderItem>
             </BoxHeader>
             <BoxContent>
-                <form className='flex flex-col'>
+                <form className='flex flex-col' action={handleSubmit}>
+                {isSectionInfo && (
+                <>
+                    <div className='flex justify-between mb-5'>
+                        <div className="flex flex-col gap-2 w-96">
+                            <label htmlFor="title">Titulo</label>
+                            <InputText id="title" aria-describedby="title-help" size="small"
+                            placeholder='Titulo da seção' maxLength={45} value={titulo}
+                            onChange={(e) => setTitulo(e.target.value)}/>
+                        </div>
+                    </div>
+
+                    <div className='flex justify-between mb-5'>
+                        <div className="flex flex-col gap-2 w-96">
+                            <label htmlFor="description">Descrição</label>
+                            <InputText id="description" aria-describedby="description-help" size="small"
+                            placeholder='Descrição da seção' maxLength={45} value={descricao}
+                            onChange={(e) => setDescricao(e.target.value)}/>
+                        </div>
+                    </div>
+
+                    <div className='flex justify-between mb-7'>
+                        <div className="flex flex-col gap-2 w-96">
+                            <label htmlFor="numOrdem">Ordem</label>
+                            <InputNumber id="numOrdem" aria-describedby="numOrdem-help" value={numOrdem}
+                            onChange={(e) => setNumOrdem(e.value)} min={0} mode='decimal'
+                            placeholder='Selecione a ordem da seção'/>
+                        </div>
+                    </div>
+
+                    <div className='flex gap-5 self-end'>
+                        <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
+                            router.push('/cardapio');
+                        }}>Voltar</Button>
+                        <Button size='small' btnStyle='btnPrimary' type='submit'>Cadastrar</Button>
+                    </div>
+                    </>
+                )}
+
+                {isSectionProducts && (
+                <>
                     <div className='flex justify-between mb-5'>
                         <div className="flex flex-col gap-2 w-96">
                             <label htmlFor="title">Titulo</label>
@@ -39,30 +101,16 @@ export default function CadastrarSecao() {
                         </div>
                     </div>
 
-                    <div className='flex justify-between mb-5'>
-                        <div className="flex flex-col gap-2 w-96">
-                            <label htmlFor="description">Descrição</label>
-                            <InputText id="description" aria-describedby="description-help" size="small"
-                            placeholder='Descrição da seção' maxLength={45}/>
-                        </div>
-                    </div>
-
-                    <div className='flex justify-between mb-7'>
-                        <div className="flex flex-col gap-2 w-96">
-                            <label htmlFor="description">Descrição</label>
-                            <Dropdown id="option" aria-describedby="option-help" value={selectedOption}
-                             options={options} onChange={(e) => setSelectedOption(e.value)}
-                             placeholder='Selecione uma opção'/>
-                        </div>
-                    </div>
-
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
                             router.push('/cardapio');
                         }}>Voltar</Button>
-                        <Button size='small' btnStyle='btnPrimary'>Próximo</Button>
+                        <Button size='small' btnStyle='btnPrimary' type='submit'>Cadastrar</Button>
                     </div>
+                    </>
+                )}
                 </form>
+
             </BoxContent>
         </Box>
     );

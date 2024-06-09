@@ -2,7 +2,7 @@ import { Button as PrimeButton } from 'primereact/button';
 import styles from './button.module.css';
 
 export interface IButtonProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onClick?: () => void;
     type?: "button" | "submit" | "reset";
     btnStyle?: "btnPrimary" | "btnSecondary";
