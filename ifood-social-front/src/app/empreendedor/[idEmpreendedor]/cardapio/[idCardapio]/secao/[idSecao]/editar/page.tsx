@@ -5,21 +5,22 @@ import { BoxContent } from '@/app/components/box/BoxContent';
 import { BoxHeader } from '@/app/components/box/BoxHeader';
 import { BoxHeaderItem } from '@/app/components/box/BoxHeaderItem';
 import { Button } from '@/app/components/button/Button';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { useState } from 'react';
-import { ISections } from '@/api/interfaces';
+import { ISection } from '@/api/interfaces';
 
-export default function CadastrarSecao() {
+export default function EditarSecao() {
     const router = useRouter();
-    const [section, setSection] = useState<ISections>({} as ISections);
+    const [section, setSection] = useState<ISection>({} as ISection);
+    const { idEmpreendedor, idCardapio, idSecao } = useParams();
 
     return (
         <Box>
             <BoxHeader>
                 <BoxHeaderItem isActive={true} isDisabled={true}>
-                    <h2>Registrar seção</h2>
+                    <h2>Atualizar seção</h2>
                 </BoxHeaderItem>
             </BoxHeader>
             <BoxContent>
@@ -50,9 +51,9 @@ export default function CadastrarSecao() {
 
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
-                            router.push('/cardapio');
+                            router.push(`/empreendedor/${idEmpreendedor}/cardapio/${idCardapio}`);
                         }}>Voltar</Button>
-                        <Button size='small' btnStyle='btnPrimary'>Próximo</Button>
+                        <Button size='small' btnStyle='btnPrimary'>Editar</Button>
                     </div>
                 </form>
             </BoxContent>

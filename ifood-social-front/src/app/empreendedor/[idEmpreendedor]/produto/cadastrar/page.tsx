@@ -18,7 +18,7 @@ export default function CadastrarProduto() {
         <Box>
             <BoxHeader>
                 <BoxHeaderItem isActive={true} isDisabled={true}>
-                    <h2>Registrar produto</h2>
+                    <h2>Cadastrar produto</h2>
                 </BoxHeaderItem>
             </BoxHeader>
             <BoxContent>

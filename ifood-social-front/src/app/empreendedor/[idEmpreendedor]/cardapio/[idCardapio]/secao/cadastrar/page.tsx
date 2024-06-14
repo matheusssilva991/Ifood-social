@@ -5,11 +5,11 @@ import { BoxContent } from '@/app/components/box/BoxContent';
 import { BoxHeader } from '@/app/components/box/BoxHeader';
 import { BoxHeaderItem } from '@/app/components/box/BoxHeaderItem';
 import { Button } from '@/app/components/button/Button';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import { useState } from 'react';
-import { createSection } from '@/api/secoes';
+import { createSection } from '@/api/sections';
 
 export default function CadastrarSecao() {
     const [isSectionInfo, setIsSectionInfo ] = useState(true);
@@ -18,6 +18,7 @@ export default function CadastrarSecao() {
     const [titulo, setTitulo] = useState('');
     const [descricao, setDescricao] = useState('');
     const [numOrdem, setNumOrdem] = useState<number | null>(0);
+    const { idEmpreendedor, idCardapio } = useParams();
 
     async function handleSubmit() {
         const section = {
@@ -84,7 +85,7 @@ export default function CadastrarSecao() {
 
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
-                            router.push('/cardapio');
+                            router.push(`/empreendedor/${idEmpreendedor}/cardapio/${idCardapio}`);
                         }}>Voltar</Button>
                         <Button size='small' btnStyle='btnPrimary' type='submit'>Cadastrar</Button>
                     </div>
@@ -103,7 +104,7 @@ export default function CadastrarSecao() {
 
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
-                            router.push('/cardapio');
+                            router.push(`/empreendedor/${idEmpreendedor}/cardapio/${idCardapio}`);
                         }}>Voltar</Button>
                         <Button size='small' btnStyle='btnPrimary' type='submit'>Cadastrar</Button>
                     </div>
