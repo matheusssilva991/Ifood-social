@@ -33,7 +33,7 @@ class CardapioService {
 
       // Verifica se o cardápio já existe
       const cardapio = await cardapioModel.findByTitulo(data.titulo);
-      if (cardapio) {
+      if (cardapio && cardapio.idEmpreendimento == data.idEmpreendimento) {
         return { error: 'Cardápio já cadastrado.', status: 400 };
       }
 
@@ -61,7 +61,8 @@ class CardapioService {
       // Verifica se os campos obrigatórios foram preenchidos
       if (data.titulo) {
         const cardapioByTitulo = await cardapioModel.findByTitulo(data.titulo);
-        if (cardapioByTitulo && cardapioByTitulo.id !== id) {
+        if (cardapioByTitulo && cardapioByTitulo.id != id &&
+          cardapioByTitulo.idEmpreendimento == cardapio.idEmpreendimento) {
           return { error: 'Cardápio já cadastrado.', status: 400 };
         }
       }
