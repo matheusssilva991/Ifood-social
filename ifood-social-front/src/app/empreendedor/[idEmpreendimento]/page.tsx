@@ -29,7 +29,7 @@ export default function Empreendedor() {
     const [menus, setMenus] = useState<IMenu[]>([]);
     const router = useRouter();
     const toast = useRef<Toast>(null);
-    const { idEmpreendedor } = useParams();
+    const { idEmpreendimento } = useParams();
 
     function handleClickMenus() {
         setIsMenus(true);
@@ -91,27 +91,27 @@ export default function Empreendedor() {
             try {
                 const data = await getProducts();
                 setProducts(data.filter((product) =>
-                     product.idEmpreendimento === Number(idEmpreendedor)));
+                     product.idEmpreendimento === Number(idEmpreendimento)));
             } catch (error) {
                 console.error(error);
             }
         }
 
         fetchProducts();
-    }, [idEmpreendedor]);
+    }, [idEmpreendimento]);
 
     useEffect(() => {
         async function fetchMenus() {
             try {
                 const data = await getMenus();
-                setMenus(data.filter((menu) => menu.idEmpreendimento === Number(idEmpreendedor)));
+                setMenus(data.filter((menu) => menu.idEmpreendimento === Number(idEmpreendimento)));
             } catch (error) {
                 console.error(error);
             }
         }
 
         fetchMenus();
-    }, [idEmpreendedor]);
+    }, [idEmpreendimento]);
 
     return (
         <>
@@ -136,7 +136,7 @@ export default function Empreendedor() {
                             value={menuSearchValue} onChange={(e) => setSectionSearchValue(e.target.value)}/>
                         </IconField>
                         <Button icon="pi pi-plus" size="small" btnStyle="btnSecondary" onClick={() => {
-                            router.push(`/empreendedor/${idEmpreendedor}/cardapio/cadastrar`);
+                            router.push(`/empreendedor/${idEmpreendimento}/cardapio/cadastrar`);
                         }}>
                             Adicionar cardápio
                         </Button>
@@ -156,10 +156,10 @@ export default function Empreendedor() {
                         <Column header="Ações" style={{ width: '3rem' }} body={(rowData) => (
                             <div className="flex gap-2">
                                 <Button icon="pi pi-eye" size="small" btnStyle="btnSecondary" onClick={() => {
-                                    router.push(`/empreendedor/${idEmpreendedor}/cardapio/${rowData.id}`);
+                                    router.push(`/empreendedor/${idEmpreendimento}/cardapio/${rowData.id}`);
                                 }}></Button>
                                 <Button icon="pi pi-pencil" size="small" btnStyle="btnSecondary" onClick={() => {
-                                    router.push(`/empreendedor/${idEmpreendedor}/cardapio/${rowData.id}/editar`);
+                                    router.push(`/empreendedor/${idEmpreendimento}/cardapio/${rowData.id}/editar`);
                                 }}></Button>
                                 <Button icon="pi pi-trash" size="small" btnStyle="btnSecondary"
                                 onClick={() => confirmDialogSection(rowData.id)}></Button>
@@ -178,7 +178,7 @@ export default function Empreendedor() {
                             value={productSearchValue} onChange={(e) => setProductSearchValue(e.target.value)}/>
                         </IconField>
                         <Button icon="pi pi-plus" size="small" btnStyle="btnSecondary" onClick={() => {
-                            router.push(`/empreendedor/${idEmpreendedor}/produto/cadastrar`);
+                            router.push(`/empreendedor/${idEmpreendimento}/produto/cadastrar`);
                         }}>
                             Adicionar Produto
                         </Button>

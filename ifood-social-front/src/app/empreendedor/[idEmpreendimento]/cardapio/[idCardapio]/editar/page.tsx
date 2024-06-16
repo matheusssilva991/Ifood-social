@@ -18,19 +18,19 @@ export default function AtualizarCardapio() {
     const router = useRouter();
     const { idCardapio } = useParams();
     const toast = useRef<Toast>(null);
-    const { idEmpreendedor } = useParams();
+    const { idEmpreendimento } = useParams();
 
     async function handleSubmit() {
         const menu = {
             id: Number(idCardapio),
             titulo: title,
             descricao: description,
-            idEmpreendimento: Number(idEmpreendedor)
+            idEmpreendimento: Number(idEmpreendimento)
         };
 
         try {
             await updateMenu(menu);
-            router.push(`/empreendedor/${idEmpreendedor}`);
+            router.push(`/empreendedor/${idEmpreendimento}`);
         } catch (error: any) {
             showToast({
                 severity: 'error',
@@ -90,7 +90,7 @@ export default function AtualizarCardapio() {
 
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
-                            router.push(`/empreendedor/${idEmpreendedor}`);
+                            router.push(`/empreendedor/${idEmpreendimento}`);
                         }}>Voltar</Button>
                         <Button size='small' type='submit' btnStyle='btnPrimary'>Atualizar</Button>
                     </div>

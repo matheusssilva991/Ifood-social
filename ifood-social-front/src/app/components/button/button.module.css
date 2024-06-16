@@ -1,9 +1,3 @@
-.btn {
-    /* display: flex;
-    justify-content: space-between;
-    gap: 0.5rem; */
-}
-
 .btnPrimary {
     background-color: var(--main-color);
     color: var(--text-primary);

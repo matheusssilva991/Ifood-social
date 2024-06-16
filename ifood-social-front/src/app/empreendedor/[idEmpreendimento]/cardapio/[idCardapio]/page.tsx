@@ -17,14 +17,14 @@ import { InputIcon } from "primereact/inputicon";
 import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './cardapio.module.css';
+import styles from './secao.module.css';
 
 export default function Cardapio() {
     const [sections, setSections] = useState<ISection[]>([]);
     const [sectionSearchValue, setSectionSearchValue] = useState('');
     const router = useRouter();
     const toast = useRef<Toast>(null);
-    const { idEmpreendedor, idCardapio } = useParams();
+    const { idEmpreendimento, idCardapio } = useParams();
 
     const filteredSections = useMemo(() => {
         return sections.filter((section) =>
@@ -107,7 +107,7 @@ export default function Cardapio() {
                     </IconField>
                     <Button icon="pi pi-plus" size="small" btnStyle="btnSecondary" onClick={() => {
                         router.push(
-                            `/empreendedor/${idEmpreendedor}/cardapio/${idCardapio}/secao/cadastrar`
+                            `/empreendedor/${idEmpreendimento}/cardapio/${idCardapio}/secao/cadastrar`
                         );
                     }}>
                         Adicionar seção
@@ -132,7 +132,7 @@ export default function Cardapio() {
                     <Column header="Ações" style={{ width: '3rem' }} body={(rowData) => (
                         <div className="flex gap-2">
                             <Button icon="pi pi-pencil" size="small" btnStyle="btnSecondary" onClick={() => {
-                                router.push(`/empreendedor/${idEmpreendedor}/cardapio/${idCardapio}/secao/${rowData.id}/editar`);
+                                router.push(`/empreendedor/${idEmpreendimento}/cardapio/${idCardapio}/secao/${rowData.id}/editar`);
                             }}></Button>
                             <Button icon="pi pi-trash" size="small" btnStyle="btnSecondary"
                             onClick={() => confirmDialogSection(rowData.id)}></Button>

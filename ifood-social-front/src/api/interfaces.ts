@@ -39,3 +39,21 @@ export interface IEnterprise {
     descricao: string,
   }
 }
+
+export interface ISecaoProduto {
+  id?: number,
+  numOrdem: number,
+  idSecao: number,
+  idProduto?: number,
+  produto?: {
+    id: number,
+    descricao: string,
+    imagem: string,
+    preco: number,
+    disponibilidade: string,
+    categoria: {
+      id: number,
+      descricao: string,
+    }
+  }
+}

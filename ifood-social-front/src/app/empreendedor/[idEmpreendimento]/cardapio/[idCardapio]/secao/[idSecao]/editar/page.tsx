@@ -14,7 +14,7 @@ import { ISection } from '@/api/interfaces';
 export default function EditarSecao() {
     const router = useRouter();
     const [section, setSection] = useState<ISection>({} as ISection);
-    const { idEmpreendedor, idCardapio, idSecao } = useParams();
+    const { idEmpreendimento, idCardapio, idSecao } = useParams();
 
     return (
         <Box>
@@ -51,7 +51,7 @@ export default function EditarSecao() {
 
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
-                            router.push(`/empreendedor/${idEmpreendedor}/cardapio/${idCardapio}`);
+                            router.push(`/empreendedor/${idEmpreendimento}/cardapio/${idCardapio}`);
                         }}>Voltar</Button>
                         <Button size='small' btnStyle='btnPrimary'>Editar</Button>
                     </div>
