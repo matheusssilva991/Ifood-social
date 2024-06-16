@@ -50,6 +50,7 @@ class SecaoModel {
   }
 
   async delete(id) {
+    await connection.execute('DELETE FROM SECAO_PRODUTO WHERE SECAO_CARDAPIO_COD_SECAO_CARDAPIO = ?', [id]);
     await connection.execute('DELETE FROM SECAO_CARDAPIO WHERE COD_SECAO_CARDAPIO = ?', [id]);
   }
 

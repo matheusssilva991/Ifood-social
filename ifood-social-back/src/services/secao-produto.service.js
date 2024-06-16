@@ -85,7 +85,7 @@ class SecaoProdutoService {
       // Verifica se a seção de produto já existe
       if (data.idProduto && data.idSecao) {
         const secaoProdutoExists = await secaoProdutoModel.findBySecaoEProduto(data.idSecao, data.idProduto);
-        if (secaoProdutoExists && secaoProdutoExists.id !== id) {
+        if (secaoProdutoExists) {
           return { error: 'Seção de produto já cadastrada.', status: 400 };
         }
       }

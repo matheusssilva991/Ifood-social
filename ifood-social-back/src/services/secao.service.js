@@ -38,7 +38,7 @@ class SecaoCardapioService {
 
       // Verifica se a seção de cardápio já existe
       const secao = await secaoModel.findByTitulo(data.titulo);
-      if (secao) {
+      if (secao && secao.idCardapio == data.idCardapio) {
         return { error: 'Seção de cardápio já cadastrada.', status: 400 };
       }
 
@@ -72,7 +72,7 @@ class SecaoCardapioService {
       if (data.titulo) {
         if (secao.titulo !== data.titulo) {
           const secaoByTitulo = await secaoModel.findByTitulo(data.titulo);
-          if (secaoByTitulo) {
+          if (secaoByTitulo && secaoByTitulo.idCardapio == secao.idCardapio) {
             return { error: 'Seção de cardápio já cadastrada.', status: 400 };
           }
         }

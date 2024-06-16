@@ -58,7 +58,7 @@ class SecaoProdutoModel {
     const [rows] = await connection.execute('SELECT * FROM SECAO_PRODUTO WHERE SECAO_CARDAPIO_COD_SECAO_CARDAPIO = ? AND PRODUTO_COD_PRODUTO = ?',
      [idSecao, idProduto]);
 
-    if (rows.length === 0) {
+    if (rows.length == 0) {
       return null;
     }
 
