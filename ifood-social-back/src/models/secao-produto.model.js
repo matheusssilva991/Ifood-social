@@ -76,13 +76,13 @@ class SecaoProdutoModel {
     id = id[0].COD_SECAO_PRODUTO || 1;
 
     await connection.execute(
-      'INSERT INTO SECAO_PRODUTO (COD_SECAO_PRODUTO, NUM_ORDEM, COD_PRODUTO, COD_SECAO) VALUES (?, ?, ?, ?)',
+      'INSERT INTO SECAO_PRODUTO (COD_SECAO_PRODUTO, NUM_ORDEM, PRODUTO_COD_PRODUTO, SECAO_CARDAPIO_COD_SECAO_CARDAPIO) VALUES (?, ?, ?, ?)',
        [id, numOrdem, idProduto, idSecao]);
   }
 
   async update(id, { numOrdem, idProduto, idSecao }) {
     await connection.execute(
-      'UPDATE SECAO_PRODUTO SET NUM_ORDEM = ?, COD_PRODUTO = ?, COD_SECAO = ? WHERE COD_SECAO_PRODUTO = ?',
+      'UPDATE SECAO_PRODUTO SET NUM_ORDEM = ?, PRODUTO_COD_PRODUTO = ?, SECAO_CARDAPIO_COD_SECAO_CARDAPIO = ? WHERE COD_SECAO_PRODUTO = ?',
       [numOrdem, idProduto, idSecao, id]
     );
   }

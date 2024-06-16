@@ -29,7 +29,7 @@ class SecaoProdutoService {
   async create(data) {
     try {
       // Verifica se os campos obrigatórios foram preenchidos
-      if (!data.idSecao || !data.idProduto || !data.numOrdem) {
+      if (!data.idSecao || !data.idProduto || data.numOrdem == undefined) {
         return { error: 'Campos obrigatórios não preenchidos.', status: 400 };
       }
 

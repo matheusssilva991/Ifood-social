@@ -27,13 +27,13 @@ class SecaoCardapioService {
   async create(data) {
     try {
       // Verifica se os campos obrigatórios foram preenchidos
-      if (!data.descricao || !data.titulo || !data.numOrdem || !data.idCardapio) {
+      if (!data.descricao || !data.titulo || data.numOrdem == undefined || !data.idCardapio) {
         return { error: 'Campos obrigatórios não preenchidos.', status: 400 };
       }
 
       // Verifica se o número de ordem é maior que zero
-      if (data.numOrdem <= 0) {
-        return { error: 'Número de ordem deve ser maior que zero.', status: 400 };
+      if (data.numOrdem < 0) {
+        return { error: 'Número de ordem deve ser maior ou igual a zero.', status: 400 };
       }
 
       // Verifica se a seção de cardápio já existe
