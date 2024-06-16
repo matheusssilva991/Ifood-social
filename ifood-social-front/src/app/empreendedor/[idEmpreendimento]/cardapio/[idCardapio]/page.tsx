@@ -79,14 +79,14 @@ export default function Cardapio() {
         async function fetchSections() {
             try {
                 const data = await getSections();
-                setSections(data);
+                setSections(data.filter((section) => section.idCardapio === Number(idCardapio)));
             } catch (error) {
                 console.error(error);
             }
         }
 
         fetchSections();
-    }, []);
+    }, [idCardapio]);
 
     return (
         <>

@@ -40,7 +40,7 @@ export interface IEnterprise {
   }
 }
 
-export interface ISecaoProduto {
+export interface ISectionProduct {
   id?: number,
   numOrdem: number,
   idSecao: number,

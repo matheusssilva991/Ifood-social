@@ -1,23 +1,25 @@
 'use client'
 
+import { IProduct } from '@/api/interfaces';
+import { getProducts } from '@/api/products';
+import { createSectionProduct } from '@/api/sectionProduct';
+import { createSection, getSections } from '@/api/sections';
 import { Box } from '@/app/components/box/Box';
 import { BoxContent } from '@/app/components/box/BoxContent';
 import { BoxHeader } from '@/app/components/box/BoxHeader';
 import { BoxHeaderItem } from '@/app/components/box/BoxHeaderItem';
 import { Button } from '@/app/components/button/Button';
-import { useRouter, useParams } from 'next/navigation';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import { Fragment, useEffect, useMemo, useState } from 'react';
-import { createSection, getSections } from '@/api/sections';
+import { IToast } from '@/helpers/interfaces';
+import { useParams, useRouter } from 'next/navigation';
+import { Column } from 'primereact/column';
+import { DataTable } from 'primereact/datatable';
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { InputNumber } from 'primereact/inputnumber';
+import { InputText } from 'primereact/inputtext';
+import { Toast } from 'primereact/toast';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './cadastrar.module.css';
-import { IProduct } from '@/api/interfaces';
-import { getProducts } from '@/api/products';
-import { createSectionProduct } from '@/api/sectionProduct';
 
 export default function CadastrarSecao() {
     const [isSectionInfo, setIsSectionInfo ] = useState(true);
@@ -30,6 +32,7 @@ export default function CadastrarSecao() {
     const [descricao, setDescricao] = useState('');
     const [numOrdem, setNumOrdem] = useState<number | null>(0);
     const { idEmpreendimento, idCardapio } = useParams();
+    const toast = useRef<Toast>(null);
 
     const filteredProducts = useMemo(() => {
         let tmpProducts = products.filter((product) =>
@@ -58,7 +61,7 @@ export default function CadastrarSecao() {
             numOrdem: numOrdem || 0,
             idCardapio: Number(idCardapio),
         };
-        console.log(section);
+
         try {
             await createSection(section);
             const sections = await getSections();
@@ -67,7 +70,7 @@ export default function CadastrarSecao() {
                 return;
             }
 
-            const idSecao = sections[sections.length - 1].id;
+            const idSecao = sections.find((section) => section.titulo === titulo)?.id;
 
             if (idSecao === undefined) {
                 return;
@@ -82,7 +85,8 @@ export default function CadastrarSecao() {
             }
 
             router.push(`/empreendedor/${idEmpreendimento}/cardapio/${idCardapio}`);
-        } catch (error) {
+        } catch (error: any) {
+            showToast({ severity: 'error', summary: 'Erro', detail: error?.response.data.error });
             console.error(error);
         }
     }
@@ -110,7 +114,14 @@ export default function CadastrarSecao() {
         fetchProducts();
     }, [idEmpreendimento]);
 
+    const showToast = (data: IToast) => {
+        if (toast.current)
+            toast.current.show(data);
+    };
+
     return (
+        <>
+        <Toast ref={toast} position="top-right" />
         <Box>
             <BoxHeader>
                 <BoxHeaderItem isActive={isSectionInfo} onClick={handleClickSectionInfo}>
@@ -211,5 +222,6 @@ export default function CadastrarSecao() {
 
             </BoxContent>
         </Box>
+        </>
     );
 }
