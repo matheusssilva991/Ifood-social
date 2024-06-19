@@ -17,19 +17,19 @@ export default function CadastrarCardapio() {
     const [description, setDescription] = useState<string>('');
     const router = useRouter();
     const toast = useRef<Toast>(null);
-    const { idEmpreendedor } = useParams();
+    const { idEmpreendimento } = useParams();
 
 
     async function handleSubmit() {
         const menu = {
             titulo: title,
             descricao: description,
-            idEmpreendimento: Number(idEmpreendedor)
+            idEmpreendimento: Number(idEmpreendimento)
         };
 
         try {
             await createMenu(menu);
-            router.push(`/empreendedor/${idEmpreendedor}`);
+            router.push(`/empreendedor/${idEmpreendimento}`);
         } catch (error: any) {
             console.error(error);
             showToast({
@@ -76,7 +76,7 @@ export default function CadastrarCardapio() {
 
                     <div className='flex gap-5 self-end'>
                         <Button size='small' btnStyle='btnSecondary' type='button' onClick={() => {
-                            router.push(`/empreendedor/${idEmpreendedor}`);
+                            router.push(`/empreendedor/${idEmpreendimento}`);
                         }}>Voltar</Button>
                         <Button size='small' type='submit' btnStyle='btnPrimary'>Cadastrar</Button>
                     </div>
